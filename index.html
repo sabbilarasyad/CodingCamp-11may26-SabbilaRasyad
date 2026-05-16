@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Focus Analyzer</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <span class="header-icon">🎯</span>
+        <h1 class="header-title">Study Focus Analyzer</h1>
+      </div>
+      <button id="themeToggle" class="btn-icon" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN LAYOUT ===== -->
+  <main class="app-main">
+
+    <!-- LEFT COLUMN -->
+    <section class="col-left">
+
+      <!-- Total Focus Time -->
+      <div class="card card-total">
+        <p class="total-label">Total Focus Time</p>
+        <p class="total-value"><span id="totalTime">0</span> <span class="total-unit">min</span></p>
+      </div>
+
+      <!-- Input Form -->
+      <div class="card">
+        <h2 class="card-title">Add Activity</h2>
+        <form id="activityForm" novalidate>
+
+          <div class="form-group">
+            <label for="activityName">Activity Name</label>
+            <input
+              type="text"
+              id="activityName"
+              placeholder="e.g. Read Chapter 5"
+              autocomplete="off"
+            />
+            <span class="field-error" id="nameError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="activityDuration">Duration (minutes)</label>
+            <input
+              type="number"
+              id="activityDuration"
+              placeholder="e.g. 45"
+              min="1"
+            />
+            <span class="field-error" id="durationError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="activityType">Activity Type</label>
+            <select id="activityType">
+              <option value="">— Select type —</option>
+              <option value="Deep Study">🧠 Deep Study</option>
+              <option value="Practice / Coding">💻 Practice / Coding</option>
+              <option value="Distraction / Break">☕ Distraction / Break</option>
+            </select>
+            <span class="field-error" id="typeError"></span>
+          </div>
+
+          <button type="submit" class="btn-primary">+ Add Activity</button>
+        </form>
+      </div>
+
+      <!-- Custom Category -->
+      <div class="card">
+        <h2 class="card-title">Custom Category</h2>
+        <div class="custom-cat-row">
+          <input
+            type="text"
+            id="customCatInput"
+            placeholder="e.g. Language Learning"
+            autocomplete="off"
+          />
+          <button id="addCustomCat" class="btn-secondary">Add</button>
+        </div>
+        <span class="field-error" id="customCatError"></span>
+        <div id="customCatList" class="custom-cat-tags"></div>
+      </div>
+
+    </section>
+
+    <!-- RIGHT COLUMN -->
+    <section class="col-right">
+
+      <!-- Chart -->
+      <div class="card card-chart">
+        <h2 class="card-title">Focus Distribution</h2>
+        <div class="chart-wrapper">
+          <canvas id="focusChart" aria-label="Pie chart of focus time by activity type" role="img"></canvas>
+          <p id="chartEmpty" class="chart-empty">No activities yet — add one to see your chart!</p>
+        </div>
+      </div>
+
+      <!-- Activity List -->
+      <div class="card card-list">
+        <div class="list-header">
+          <h2 class="card-title">Activities</h2>
+          <div class="sort-row">
+            <label for="sortControl" class="sort-label">Sort by</label>
+            <select id="sortControl">
+              <option value="default">Date added</option>
+              <option value="name">Name (A–Z)</option>
+              <option value="duration">Duration (longest first)</option>
+              <option value="type">Type (A–Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="activityList" class="activity-list" role="list">
+          <!-- items injected by JS -->
+        </div>
+        <p id="listEmpty" class="list-empty">No activities recorded yet.</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
